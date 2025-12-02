@@ -29,7 +29,7 @@
 
         {{-- Matriks Perbandingan Kriteria --}}
         <div class="card mb-3">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header" style="background: var(--d-primary); color:black;">
                 <h5 class="mb-0">Matriks Perbandingan Kriteria</h5>
             </div>
             <div class="card-body">
@@ -78,7 +78,7 @@
 
         {{-- Matriks Bobot Prioritas --}}
         <div class="card mb-3">
-            <div class="card-header bg-success text-white">
+            <div class="card-header" style="background: var(--d-accent); color:black;">
                 <h5 class="mb-0">Matriks Bobot Prioritas Kriteria</h5>
             </div>
             <div class="card-body">
@@ -112,14 +112,27 @@
 
         {{-- Matriks Konsistensi --}}
         <div class="card mb-3">
-            <div
-                class="card-header {{ $ahpKonsisten ? 'bg-success' : 'bg-warning' }} text-{{ $ahpKonsisten ? 'white' : 'dark' }}">
-                <h5 class="mb-0">Hasil Konsistensi AHP</h5>
+
+            @php
+                $headerColor = $ahpKonsisten ? 'var(--d-secondary)' : 'var(--d-danger)';
+                $headerText = 'var(--d-contrast)';
+            @endphp
+
+            <div class="card-header" style="background: {{ $headerColor }}; color: {{ $headerText }};">
+                <h5 class="mb-0 d-flex align-items-center">
+                    @if ($ahpKonsisten)
+                        <i class="bi bi-check-circle-fill fs-3 fw-bold me-2"></i>
+                    @else
+                        <i class="bi bi-exclamation-triangle-fill fs-3 fw-bold me-2"></i>
+                    @endif
+                    Hasil Konsistensi AHP
+                </h5>
             </div>
+
             <div class="card-body">
                 @if (!$lamdaMax)
                     <div class="alert alert-info">
-                        <i class="bi bi-info-circle"></i> Belum ada hasil perhitungan. Silakan hitung pembobotan AHP
+                        <i class="bi bi-info-circle fs-5"></i> Belum ada hasil perhitungan. Silakan hitung pembobotan AHP
                         terlebih dahulu.
                     </div>
                 @else
@@ -133,24 +146,31 @@
                             <p class="mb-2"><strong>CR (Consistency Ratio):</strong> {{ number_format($cr, 5) }}</p>
                         </div>
                     </div>
+
                     <hr>
+
+                    {{-- Box hasil --}}
                     <div class="text-center p-3 rounded"
-                        style="background-color: {{ $ahpKonsisten ? '#d4edda' : '#fff3cd' }};">
+                        style="background-color: {{ $ahpKonsisten ? 'var(--d-bg)' : '#fff3cd' }};">
+
                         @if ($ahpKonsisten)
                             <h5 class="text-success mb-2">
-                                <i class="bi bi-check-circle-fill"></i> Pembobotan Konsisten
+                                <i class="bi bi-check-circle-fill fs-3 fw-bold me-1"></i>
+                                Pembobotan Konsisten
                             </h5>
                             <p class="mb-0">CR = {{ number_format($cr, 5) }} < 0.1. Anda dapat melanjutkan ke pencarian
                                     rekomendasi.</p>
                                 @else
                                     <h5 class="text-warning mb-2">
-                                        <i class="bi bi-exclamation-triangle-fill"></i> Pembobotan Tidak Konsisten
+                                        <i class="bi bi-exclamation-triangle-fill fs-3 fw-bold me-1"></i>
+                                        Pembobotan Tidak Konsisten
                                     </h5>
                                     <p class="mb-0">CR = {{ number_format($cr, 5) }} ≥ 0.1. Silakan ubah nilai
                                         perbandingan kriteria pada halaman pembobotan.</p>
                         @endif
                     </div>
 
+                    {{-- Tombol navigasi --}}
                     @if ($ahpKonsisten)
                         <div class="text-end mt-3">
                             <a href="{{ route('rekomendasi.index') }}" class="btn btn-primary btn-lg">
@@ -164,9 +184,9 @@
                             </a>
                         </div>
                     @endif
+
                 @endif
             </div>
         </div>
-
     </div>
 @endsection
