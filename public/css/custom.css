@@ -6,8 +6,8 @@
     --d-bg: #cedbff; /* Soft background */
     --d-contrast: #010101; /* Dark text */
     --d-success: #00c48c; /* Green for ALAM */
-    --d-warning: #ffa800; /* Budaya */
-    --d-danger: #ff6767;
+    --d-warning: #ffe3aa; /* Budaya */
+    --d-danger: #ffa7a7;
     --d-danger2: rgb(231, 0, 0) 7;
 }
 
@@ -92,16 +92,31 @@
     border: none;
 }
 
+.btn-1:hover {
+    background: #7a52b5;
+    color: #ffffff;
+}
+
 .btn-2 {
     background: var(--d-secondary);
     color: black;
     border: none;
 }
 
+.btn-2:hover {
+    background: #42b0ff;
+    color: #ffffff;
+}
+
 .btn-3 {
     background: var(--d-accent);
     color: black;
     border: none;
+}
+
+.btn-3:hover {
+    background: #d340c9;
+    color: #ffffff;
 }
 
 /* Form */
@@ -154,6 +169,34 @@
     --bs-alert-color: var(--d-contrast);
     --bs-alert-bg: var(--d-accent);
     --bs-alert-border-color: var(--d-accent);
+    --bs-alert-link-color: var(--d-contrast);
+}
+
+.alert-d-success {
+    --bs-alert-color: var(--d-contrast);
+    --bs-alert-bg: var(--d-bg);
+    --bs-alert-border-color: var(--d-bg);
+    --bs-alert-link-color: var(--d-contrast);
+}
+
+.alert-d-info {
+    --bs-alert-color: var(--d-contrast);
+    --bs-alert-bg: #c9e9ff;
+    --bs-alert-border-color: #c9e9ff;
+    --bs-alert-link-color: var(--d-contrast);
+}
+
+.alert-d-warning {
+    --bs-alert-color: var(--d-contrast);
+    --bs-alert-bg: var(--d-warning);
+    --bs-alert-border-color: var(--d-warning);
+    --bs-alert-link-color: var(--d-contrast);
+}
+
+.alert-d-danger {
+    --bs-alert-color: var(--d-contrast);
+    --bs-alert-bg: var(--d-danger);
+    --bs-alert-border-color: var(--d-danger);
     --bs-alert-link-color: var(--d-contrast);
 }
 
