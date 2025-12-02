@@ -7,10 +7,10 @@
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 {{-- Alert jika AHP belum konsisten --}}
                 @if (!$ahpKonsisten)
-                    <div class="alert alert-danger">
+                    <div class="alert alert-d-danger">
                         <i class="bi bi-exclamation-triangle-fill"></i>
                         <strong>Tidak Dapat Melanjutkan!</strong>
                         <p class="mb-2 mt-2">Pembobotan AHP belum konsisten (CR = {{ $cr ? number_format($cr, 5) : 'N/A' }}).
@@ -24,13 +24,13 @@
                         <a href="{{ route('pembobotan.index') }}" class="btn btn-warning btn-lg">
                             <i class="bi bi-arrow-left"></i> Kembali ke Pembobotan
                         </a>
-                        <a href="{{ route('perhitungan.index') }}" class="btn btn-info btn-lg">
+                        <a href="{{ route('perhitungan.index') }}" class="btn btn-2 btn-lg">
                             <i class="bi bi-calculator"></i> Lihat Hasil Perhitungan AHP
                         </a>
                     </div>
                 @else
                     {{-- Alert sukses AHP konsisten --}}
-                    <div class="alert alert-success">
+                    <div class="alert alert-d-success">
                         <i class="bi bi-check-circle-fill"></i>
                         <strong>Siap!</strong> Pembobotan AHP sudah konsisten (CR = {{ number_format($cr, 5) }}).
                         Anda dapat melanjutkan pencarian rekomendasi.
@@ -41,7 +41,7 @@
                             <h4 class="mb-4">Masukkan Preferensi Anda</h4>
 
                             @if ($errors->any())
-                                <div class="alert alert-danger">
+                                <div class="alert alert-d-danger">
                                     <ul class="mb-0">
                                         @foreach ($errors->all() as $error)
                                             <li>{{ $error }}</li>
@@ -54,7 +54,7 @@
                                 @csrf
 
                                 {{-- Info Box --}}
-                                <div class="alert alert-info">
+                                <div class="alert alert-d-info">
                                     <i class="bi bi-info-circle"></i>
                                     <strong>Panduan:</strong>
                                     <ul class="mb-0 mt-2">
@@ -68,7 +68,7 @@
 
                                 {{-- Input Koordinat --}}
                                 <div class="card mb-4">
-                                    <div class="card-header bg-primary text-white">
+                                    <div class="card-header" style="background: var(--d-primary); color:black;">
                                         <h5 class="mb-0"><i class="bi bi-geo-alt"></i> Lokasi Anda (Opsional)</h5>
                                     </div>
                                     <div class="card-body">
@@ -95,7 +95,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="alert alert-secondary mb-0">
+                                        <div class="alert alert-d-info mb-0">
                                             <i class="bi bi-lightbulb"></i>
                                             <strong>Tips:</strong> Anda bisa mendapatkan koordinat dengan:
                                             <ol class="mb-0 mt-1">
@@ -109,7 +109,7 @@
 
                                 {{-- Filter Jenis Wisata --}}
                                 <div class="card mb-4">
-                                    <div class="card-header bg-success text-white">
+                                    <div class="card-header" style="background: var(--d-primary); color:black;">
                                         <h5 class="mb-0"><i class="bi bi-funnel"></i> Filter Jenis Wisata (Opsional)</h5>
                                     </div>
                                     <div class="card-body">
@@ -119,8 +119,9 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="jenis_wisata[]"
-                                                        value="alam" id="jenis_alam"
+                                                    <input class="form-check-input"
+                                                        style="border: 1px solid var(--d-primary)" type="checkbox"
+                                                        name="jenis_wisata[]" value="alam" id="jenis_alam"
                                                         {{ is_array(old('jenis_wisata')) && in_array('alam', old('jenis_wisata')) ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="jenis_alam">
                                                         <i class="bi bi-tree text-success"></i> Wisata Alam
@@ -129,8 +130,9 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="jenis_wisata[]"
-                                                        value="buatan" id="jenis_buatan"
+                                                    <input class="form-check-input"
+                                                        style="border: 1px solid var(--d-primary)" type="checkbox"
+                                                        name="jenis_wisata[]" value="buatan" id="jenis_buatan"
                                                         {{ is_array(old('jenis_wisata')) && in_array('buatan', old('jenis_wisata')) ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="jenis_buatan">
                                                         <i class="bi bi-building text-primary"></i> Wisata Buatan
@@ -139,8 +141,9 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="jenis_wisata[]"
-                                                        value="budaya" id="jenis_budaya"
+                                                    <input class="form-check-input"
+                                                        style="border: 1px solid var(--d-primary)" type="checkbox"
+                                                        name="jenis_wisata[]" value="budaya" id="jenis_budaya"
                                                         {{ is_array(old('jenis_wisata')) && in_array('budaya', old('jenis_wisata')) ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="jenis_budaya">
                                                         <i class="bi bi-bank text-warning"></i> Wisata Budaya
