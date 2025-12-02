@@ -67,7 +67,7 @@
                                         <form action="{{ route('kriteria.update', $k->id) }}" method="POST">
                                             @csrf
                                             @method('PUT')
-                                            <div class="modal-header bg-warning">
+                                            <div class="modal-header" style="background: var(--d-secondary); color:black;">
                                                 <h5 class="modal-title">Edit Kriteria</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
@@ -96,7 +96,7 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Batal</button>
-                                                <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
+                                                <button type="submit" class="btn btn-1">Simpan Perubahan</button>
                                             </div>
                                         </form>
                                     </div>
