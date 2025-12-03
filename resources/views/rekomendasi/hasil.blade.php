@@ -168,10 +168,40 @@
             {{-- Tab 2: Detail Perhitungan TOPSIS --}}
             <div class="tab-pane fade" id="perhitungan" role="tabpanel">
 
-                {{-- 1. Matriks Keputusan --}}
+                {{-- 1. Bobot Kriteria --}}
+                <div class="card mb-3">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="bi bi-percent"></i> Bobot Kriteria (dari AHP)</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-sm">
+                                <thead class="table-light">
+                                    <tr>
+                                        @foreach ($topsisData['kriterias'] as $k)
+                                            <th class="text-center">
+                                                {{ $k->kode_kriteria }} ({{ $k->nama_kriteria }})
+                                            </th>
+                                        @endforeach
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        @foreach ($topsisData['kriterias'] as $k)
+                                            <td class="text-center">
+                                                {{ number_format($topsisData['bobot'][$k->id] ?? 0, 5) }}</td>
+                                        @endforeach
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- 2. Matriks Keputusan --}}
                 <div class="card mb-3">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0"><i class="bi bi-table"></i> Matriks Keputusan</h5>
+                        <h5 class="mb-0"><i class="bi bi-table"></i> Data Alternatif</h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -180,7 +210,9 @@
                                     <tr>
                                         <th>Alternatif</th>
                                         @foreach ($topsisData['kriterias'] as $k)
-                                            <th class="text-center">{{ $k->kode_kriteria }}</th>
+                                            <th class="text-center">
+                                                {{ $k->kode_kriteria }} ({{ $k->nama_kriteria }})
+                                            </th>
                                         @endforeach
                                     </tr>
                                 </thead>
@@ -192,7 +224,19 @@
                                         <tr>
                                             <td><strong>{{ $alt->kode_alternatif ?? 'A' . $altId }}</strong></td>
                                             @foreach ($topsisData['kriterias'] as $k)
-                                                <td class="text-center">{{ number_format($vals[$k->id] ?? 0, 5) }}</td>
+                                                <td class="text-center">
+                                                    @php
+                                                        $value = $vals[$k->id] ?? 0;
+
+                                                        // Format khusus rating (C5)
+                                                        $formatted =
+                                                            $k->kode_kriteria === 'C5'
+                                                                ? number_format($value, 1) // satu angka di belakang koma
+                                                                : number_format($value, 0); // bulat
+                                                    @endphp
+
+                                                    {{ $formatted }}
+                                                </td>
                                             @endforeach
                                         </tr>
                                     @endforeach
@@ -202,10 +246,10 @@
                     </div>
                 </div>
 
-                {{-- 2. Matriks Normalisasi --}}
+                {{-- 3. Matriks Normalisasi --}}
                 <div class="card mb-3">
                     <div class="card-header bg-info text-white">
-                        <h5 class="mb-0"><i class="bi bi-calculator"></i> Matriks Normalisasi</h5>
+                        <h5 class="mb-0"><i class="bi bi-calculator"></i> Matriks Keputusan Normalisasi</h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -236,38 +280,10 @@
                     </div>
                 </div>
 
-                {{-- 3. Bobot Kriteria --}}
-                <div class="card mb-3">
-                    <div class="card-header bg-success text-white">
-                        <h5 class="mb-0"><i class="bi bi-percent"></i> Bobot Kriteria (dari AHP)</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-sm">
-                                <thead class="table-light">
-                                    <tr>
-                                        @foreach ($topsisData['kriterias'] as $k)
-                                            <th class="text-center">{{ $k->kode_kriteria }}</th>
-                                        @endforeach
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        @foreach ($topsisData['kriterias'] as $k)
-                                            <td class="text-center">
-                                                {{ number_format($topsisData['bobot'][$k->id] ?? 0, 5) }}</td>
-                                        @endforeach
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
                 {{-- 4. Matriks Terbobot --}}
                 <div class="card mb-3">
                     <div class="card-header bg-warning text-dark">
-                        <h5 class="mb-0"><i class="bi bi-graph-up"></i> Matriks Terbobot</h5>
+                        <h5 class="mb-0"><i class="bi bi-graph-up"></i> Matriks Keputusan Normalisasi Terbobot</h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -352,15 +368,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($topsisData['hasilRanking'] as $item)
+                                    @foreach ($detailJarakPreferensi as $item)
                                         <tr>
                                             <td><strong>{{ $item['kode_alternatif'] }}</strong></td>
-                                            <td class="text-center">
-                                                {{ number_format($topsisData['distPos'][array_search($item['kode_alternatif'], array_column($topsisData['alternatifs']->toArray(), 'kode_alternatif'))] ?? 0, 5) }}
-                                            </td>
-                                            <td class="text-center">
-                                                {{ number_format($topsisData['distNeg'][array_search($item['kode_alternatif'], array_column($topsisData['alternatifs']->toArray(), 'kode_alternatif'))] ?? 0, 5) }}
-                                            </td>
+                                            <td class="text-center">{{ number_format($item['d_plus'], 5) }}</td>
+                                            <td class="text-center">{{ number_format($item['d_minus'], 5) }}</td>
                                             <td class="text-center">
                                                 <strong>{{ number_format($item['nilai_preferensi'], 5) }}</strong></td>
                                         </tr>
@@ -409,7 +421,8 @@
                                                 <span class="badge bg-info">{{ ucfirst($item['jenis_wisata']) }}</span>
                                             </td>
                                             <td class="text-center">
-                                                <strong>{{ number_format($item['nilai_preferensi'], 5) }}</strong></td>
+                                                <strong>{{ number_format($item['nilai_preferensi'], 5) }}</strong>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
