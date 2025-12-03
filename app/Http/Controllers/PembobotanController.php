@@ -29,6 +29,7 @@ class PembobotanController extends Controller
 
         $hasil = [
             'matriks' => session('matriks'),
+            'normalisasi' => session('normalisasi'),
             'bobot' => session('bobot'),
             'totalKolom' => session('totalKolom'),
             'lamdaMax' => session('lamdaMax'),
@@ -101,6 +102,15 @@ class PembobotanController extends Controller
             }
         }
 
+        // Normalisasi matriks
+        $normalisasi = [];
+        foreach ($kriterias as $k1) {
+            foreach ($kriterias as $k2) {
+                $normalisasi[$k1->kode_kriteria][$k2->kode_kriteria] =
+                    $matriks[$k1->kode_kriteria][$k2->kode_kriteria] / $totalKolom[$k2->kode_kriteria];
+            }
+        }
+
         // Normalisasi matriks dan hitung bobot rata-rata
         $bobot = [];
         foreach ($kriterias as $k1) {
@@ -148,6 +158,7 @@ class PembobotanController extends Controller
         // Simpan hasil perhitungan ke session
         session([
             'matriks' => $matriks,
+            'normalisasi'   => $normalisasi,
             'bobot' => $bobot,
             'totalKolom' => $totalKolom,
             'lamdaMax' => $lamdaMax,
