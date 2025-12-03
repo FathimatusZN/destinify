@@ -47,9 +47,13 @@
                     <h6 class="mb-2">Status AHP</h6>
                     <h3>
                         @if ($ahpKonsisten)
-                            <i class="bi bi-check-circle-fill icon-soft-green"></i>
+                            <i class="bi bi-check-circle-fill icon-soft-green">
+                                <br><span class="fs-6">Konsisten</span>
+                            </i>
                         @else
-                            <i class="bi bi-x-circle-fill icon-soft-pink"></i>
+                            <i class="bi bi-x-circle-fill icon-soft-pink">
+                                <br><span class="fs-6">Belum Konsisten</span>
+                            </i>
                         @endif
                     </h3>
                 </div>
@@ -96,20 +100,9 @@
                 <div class="card glass-card">
                     <div class="card-body text-center p-4">
                         <i class="bi bi-calculator-fill display-4 icon-soft-yellow mb-3"></i>
-                        <h5>Pembobotan AHP</h5>
-                        <p class="text-muted">Hitung bobot kriteria</p>
+                        <h5>Perhitungan AHP</h5>
+                        <p class="text-muted">Hitung bobot kriteria dengan AHP</p>
                         <a href="{{ route('pembobotan.index') }}" class="btn btn-glass">Hitung</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card glass-card">
-                    <div class="card-body text-center p-4">
-                        <i class="bi bi-bar-chart-fill display-4 icon-soft-pink mb-3"></i>
-                        <h5>Perhitungan</h5>
-                        <p class="text-muted">Lihat hasil perhitungan AHP</p>
-                        <a href="{{ route('perhitungan.index') }}" class="btn btn-glass">Lihat</a>
                     </div>
                 </div>
             </div>

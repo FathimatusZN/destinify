@@ -166,10 +166,6 @@
             <i class="bi bi-calculator me-2"></i> Pembobotan AHP
         </a>
 
-        <a href="{{ route('perhitungan.index') }}" class="{{ request()->is('perhitungan*') ? 'active' : '' }}">
-            <i class="bi bi-bar-chart-line me-2"></i> Hasil Perhitungan
-        </a>
-
         <a href="{{ route('rekomendasi.index') }}" class="{{ request()->is('rekomendasi*') ? 'active' : '' }}">
             <i class="bi bi-star me-2"></i> Rekomendasi
         </a>
@@ -201,10 +197,6 @@
                 <a href="{{ route('pembobotan.index') }}"
                     class="d-block text-white py-1 {{ request()->is('pembobotan*') ? 'active' : '' }}">
                     Pembobotan AHP
-                </a>
-                <a href="{{ route('perhitungan.index') }}"
-                    class="d-block text-white py-1 {{ request()->is('perhitungan*') ? 'active' : '' }}">
-                    Hasil Perhitungan
                 </a>
                 <a href="{{ route('rekomendasi.index') }}"
                     class="d-block text-white py-1 {{ request()->is('rekomendasi*') ? 'active' : '' }}">

@@ -27,7 +27,21 @@ class PembobotanController extends Controller
             }
         }
 
-        return view('pembobotan.index', compact('kriterias', 'matriks'));
+        $hasil = [
+            'matriks' => session('matriks'),
+            'bobot' => session('bobot'),
+            'totalKolom' => session('totalKolom'),
+            'lamdaMax' => session('lamdaMax'),
+            'ci' => session('ci'),
+            'ri' => session('ri'),
+            'cr' => session('cr'),
+            'ahpKonsisten' => session('ahp_konsisten'),
+        ];
+
+        return view('pembobotan.index', array_merge(
+            compact('kriterias', 'matriks'),
+            $hasil
+        ));
     }
 
     public function updateNilai(Request $request)
@@ -143,11 +157,14 @@ class PembobotanController extends Controller
             'ahp_konsisten' => $cr < 0.1
         ]);
 
+        session()->flash('scroll', true);
+        return redirect()->route('pembobotan.index');
+
         if ($cr < 0.1) {
-            return redirect()->route('perhitungan.index')
+            return redirect()->route('pembobotan.index')
                 ->with('success', 'Pembobotan AHP konsisten! CR = ' . number_format($cr, 4));
         } else {
-            return redirect()->route('perhitungan.index')
+            return redirect()->route('pembobotan.index')
                 ->with('error', 'Pembobotan tidak konsisten! CR = ' . number_format($cr, 4) . '. Silakan ubah nilai perbandingan.');
         }
     }

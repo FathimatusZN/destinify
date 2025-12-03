@@ -24,9 +24,6 @@
                         <a href="{{ route('pembobotan.index') }}" class="btn btn-warning btn-lg">
                             <i class="bi bi-arrow-left"></i> Kembali ke Pembobotan
                         </a>
-                        <a href="{{ route('perhitungan.index') }}" class="btn btn-2 btn-lg">
-                            <i class="bi bi-calculator"></i> Lihat Hasil Perhitungan AHP
-                        </a>
                     </div>
                 @else
                     {{-- Alert sukses AHP konsisten --}}
