@@ -60,7 +60,7 @@
                                     <ul class="mb-0 mt-2">
                                         <li><strong>Lokasi Anda:</strong> Masukkan koordinat untuk hasil yang lebih akurat
                                             berdasarkan jarak sebenarnya. Kosongkan jika ingin menggunakan jarak default
-                                            sistem.</li>
+                                            sistem  (titik lokasi : UPN "Veteran" Jawa Timur).</li>
                                         <li><strong>Jenis Wisata:</strong> Pilih satu atau lebih jenis wisata yang Anda
                                             inginkan. Jika tidak dipilih, sistem akan menampilkan semua jenis.</li>
                                     </ul>
