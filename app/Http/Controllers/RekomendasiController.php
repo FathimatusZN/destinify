@@ -169,7 +169,26 @@ class RekomendasiController extends Controller
             'bobot' => $bobotKriteria
         ];
 
-        return view('rekomendasi.hasil', compact('hasilRanking', 'useUserLocation', 'topsisData'));
+        // === DETAIL JARAK & NILAI PREFERENSI URUT KODE ALTERNATIF ===
+        $detailJarakPreferensi = [];
+
+        foreach ($wisatas->sortBy('id') as $w) {
+            $id = $w->id;
+
+            $detailJarakPreferensi[] = [
+                'kode_alternatif' => $w->kode_alternatif,
+                'd_plus' => $topsisResult['dPositif'][$id] ?? 0,
+                'd_minus' => $topsisResult['dNegatif'][$id] ?? 0,
+                'nilai_preferensi' => $topsisResult['preferensi'][$id] ?? 0,
+            ];
+        }
+
+        return view('rekomendasi.hasil', [
+            'hasilRanking' => $hasilRanking,
+            'useUserLocation' => $useUserLocation,
+            'topsisData' => $topsisData,
+            'detailJarakPreferensi' => $detailJarakPreferensi,
+        ]);
     }
 
     /**
