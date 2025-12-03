@@ -15,9 +15,10 @@
 
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h5>Daftar Kriteria</h5>
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahModal">
+            {{-- Add Kriteria Nonaktif --}}
+            {{-- <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahModal">
                 <i class="bi bi-plus-lg"></i> Tambah Kriteria
-            </button>
+            </button> --}}
         </div>
 
         <div class="card shadow-sm">
@@ -52,12 +53,13 @@
                                         <i class="bi bi-pencil"></i>
                                     </button>
 
-                                    <form action="{{ route('kriteria.destroy', $k->id) }}" method="POST" class="d-inline"
+                                    {{-- Remove Kriteria Nonaktif --}}
+                                    {{-- <form action="{{ route('kriteria.destroy', $k->id) }}" method="POST" class="d-inline"
                                         onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-                                    </form>
+                                    </form> --}}
                                 </td>
                             </tr>
 
@@ -75,12 +77,14 @@
                                                 <div class="mb-3">
                                                     <label class="form-label">Kode Kriteria</label>
                                                     <input type="text" class="form-control"
-                                                        value="{{ $k->kode_kriteria }}" readonly>
+                                                        value="{{ $k->kode_kriteria }}" readonly
+                                                        style="background-color:white; cursor:not-allowed;">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Nama Kriteria</label>
                                                     <input type="text" name="nama_kriteria" class="form-control"
-                                                        value="{{ $k->nama_kriteria }}" required>
+                                                        value="{{ $k->nama_kriteria }}" readonly
+                                                        style="background-color:white; cursor:not-allowed;" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Atribut</label>
@@ -109,44 +113,6 @@
                         @endforelse
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="tambahModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{ route('kriteria.store') }}" method="POST">
-                    @csrf
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title">Tambah Kriteria</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Kode Kriteria</label>
-                            <input type="text" name="kode_kriteria" class="form-control" placeholder="Contoh: C1"
-                                required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Nama Kriteria</label>
-                            <input type="text" name="nama_kriteria" class="form-control" placeholder="Contoh: Keamanan"
-                                required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Atribut</label>
-                            <select name="atribut" class="form-select" required>
-                                <option value="">-- Pilih Atribut --</option>
-                                <option value="Benefit">Benefit</option>
-                                <option value="Cost">Cost</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
