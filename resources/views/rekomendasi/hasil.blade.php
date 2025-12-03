@@ -170,7 +170,7 @@
 
                 {{-- 1. Bobot Kriteria --}}
                 <div class="card mb-3">
-                    <div class="card-header bg-success text-white">
+                    <div class="card-header bg-success text-white" id="bobot">
                         <h5 class="mb-0"><i class="bi bi-percent"></i> Bobot Kriteria (dari AHP)</h5>
                     </div>
                     <div class="card-body">
@@ -200,7 +200,7 @@
 
                 {{-- 2. Matriks Keputusan --}}
                 <div class="card mb-3">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-primary text-white" id="data-alternatif">
                         <h5 class="mb-0"><i class="bi bi-table"></i> Data Alternatif</h5>
                     </div>
                     <div class="card-body">
@@ -248,7 +248,7 @@
 
                 {{-- 3. Matriks Normalisasi --}}
                 <div class="card mb-3">
-                    <div class="card-header bg-info text-white">
+                    <div class="card-header bg-info text-white" id="normalisasi">
                         <h5 class="mb-0"><i class="bi bi-calculator"></i> Matriks Keputusan Normalisasi</h5>
                     </div>
                     <div class="card-body">
@@ -282,7 +282,7 @@
 
                 {{-- 4. Matriks Terbobot --}}
                 <div class="card mb-3">
-                    <div class="card-header bg-warning text-dark">
+                    <div class="card-header bg-warning text-dark" id="terbobot">
                         <h5 class="mb-0"><i class="bi bi-graph-up"></i> Matriks Keputusan Normalisasi Terbobot</h5>
                     </div>
                     <div class="card-body">
@@ -316,7 +316,7 @@
 
                 {{-- 5. Solusi Ideal --}}
                 <div class="card mb-3">
-                    <div class="card-header bg-secondary text-white">
+                    <div class="card-header bg-secondary text-white" id="ideal">
                         <h5 class="mb-0"><i class="bi bi-star"></i> Solusi Ideal Positif & Negatif</h5>
                     </div>
                     <div class="card-body">
@@ -353,7 +353,7 @@
 
                 {{-- 6. Jarak & Preferensi --}}
                 <div class="card mb-3">
-                    <div class="card-header bg-dark text-white">
+                    <div class="card-header bg-dark text-white" id="jarak">
                         <h5 class="mb-0"><i class="bi bi-rulers"></i> Jarak ke Solusi Ideal & Nilai Preferensi</h5>
                     </div>
                     <div class="card-body">
@@ -374,7 +374,8 @@
                                             <td class="text-center">{{ number_format($item['d_plus'], 5) }}</td>
                                             <td class="text-center">{{ number_format($item['d_minus'], 5) }}</td>
                                             <td class="text-center">
-                                                <strong>{{ number_format($item['nilai_preferensi'], 5) }}</strong></td>
+                                                <strong>{{ number_format($item['nilai_preferensi'], 5) }}</strong>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -385,7 +386,7 @@
 
                 {{-- 7. Ranking Akhir --}}
                 <div class="card mb-3">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-primary text-white" id="ranking">
                         <h5 class="mb-0"><i class="bi bi-trophy"></i> Ranking Alternatif</h5>
                     </div>
                     <div class="card-body">
@@ -458,4 +459,84 @@
             font-weight: 600;
         }
     </style>
+
+    <!-- Floating Quick Navigation -->
+    <div id="quickNav" class="quick-nav">
+        <button class="quick-nav-btn">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <div class="quick-nav-menu shadow">
+            <a href="#bobot">Bobot Kriteria</a>
+            <a href="#data-alternatif">Data Alternatif</a>
+            <a href="#normalisasi">Normalisasi</a>
+            <a href="#terbobot">Terbobot</a>
+            <a href="#ideal">Solusi Ideal</a>
+            <a href="#jarak">Jarak & Preferensi</a>
+            <a href="#ranking">Ranking Akhir</a>
+        </div>
+    </div>
+
+    <style>
+        .quick-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .quick-nav-btn {
+            background: #0d6efd;
+            color: white;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: 0.2s;
+        }
+
+        .quick-nav-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .quick-nav-menu {
+            display: none;
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            background: white;
+            border-radius: 10px;
+            padding: 10px 0;
+            min-width: 180px;
+        }
+
+        .quick-nav-menu a {
+            display: block;
+            padding: 8px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .quick-nav-menu a:hover {
+            background: #f0f0f0;
+        }
+
+        .quick-nav.open .quick-nav-menu {
+            display: block;
+        }
+    </style>
+
+    <script>
+        document.querySelector('.quick-nav-btn').addEventListener('click', function() {
+            document.querySelector('#quickNav').classList.toggle('open');
+        });
+    </script>
+
 @endsection
