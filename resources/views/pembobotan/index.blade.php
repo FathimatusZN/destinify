@@ -191,6 +191,42 @@
             </div>
         </div>
 
+        {{-- Matriks Normalisasi --}}
+        <div class="card mb-3">
+            <div class="card-header" style="background: var(--d-secondary); color:black;">
+                <h5 class="mb-0">Matriks Normalisasi</h5>
+            </div>
+            <div class="card-body">
+                @if (empty($normalisasi))
+                    <div class="alert alert-info">Belum ada data normalisasi.</div>
+                @else
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th>Kode</th>
+                                    @foreach ($kriterias as $k)
+                                        <th>{{ $k->kode_kriteria }}</th>
+                                    @endforeach
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($kriterias as $k1)
+                                    <tr>
+                                        <th>{{ $k1->kode_kriteria }}</th>
+                                        @foreach ($kriterias as $k2)
+                                            <td>{{ number_format($normalisasi[$k1->kode_kriteria][$k2->kode_kriteria], 5) }}
+                                            </td>
+                                        @endforeach
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+            </div>
+        </div>
+
         {{-- Matriks Bobot Prioritas --}}
         <div class="card mb-3">
             <div class="card-header" style="background: var(--d-accent); color:black;">
