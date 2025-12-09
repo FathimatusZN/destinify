@@ -173,6 +173,8 @@ destinify/
 
 ## Cara Kerja Sistem
 
+![Destinify Flow](./destinify-flow.png)
+
 ### 1. Pembobotan Kriteria (AHP)
 
 -   Input nilai perbandingan antar kriteria (skala 1-9)
