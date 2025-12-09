@@ -14,6 +14,7 @@ class PembobotanController extends Controller
         $kriterias = Kriteria::all();
         $relasi = DB::table('tb_rel_kriteria')->get();
 
+        // Buat matriks dari database (BUKAN dari session)
         $matriks = [];
         foreach ($kriterias as $k1) {
             foreach ($kriterias as $k2) {
@@ -27,8 +28,9 @@ class PembobotanController extends Controller
             }
         }
 
+        // Ambil hasil perhitungan dari session (jika ada)
         $hasil = [
-            'matriks' => session('matriks'),
+            'matriks' => $matriks, // GUNAKAN matriks dari DB, bukan session
             'normalisasi' => session('normalisasi'),
             'bobot' => session('bobot'),
             'totalKolom' => session('totalKolom'),
@@ -67,7 +69,11 @@ class PembobotanController extends Controller
             ['nilai' => 1 / $nilai, 'updated_at' => now()]
         );
 
-        return back()->with('success', "Nilai perbandingan $k1 terhadap $k2 berhasil diperbarui!");
+        // HAPUS session hasil perhitungan lama karena data sudah berubah
+        session()->forget(['normalisasi', 'bobot', 'totalKolom', 'lamdaMax', 'ci', 'ri', 'cr', 'ahp_konsisten']);
+
+        return redirect()->route('pembobotan.index')
+            ->with('success', "Nilai perbandingan $k1 terhadap $k2 berhasil diperbarui!");
     }
 
     public function hitung()
@@ -111,7 +117,7 @@ class PembobotanController extends Controller
             }
         }
 
-        // Normalisasi matriks dan hitung bobot rata-rata
+        // Hitung bobot rata-rata
         $bobot = [];
         foreach ($kriterias as $k1) {
             $jumlahBaris = 0;
@@ -157,7 +163,6 @@ class PembobotanController extends Controller
 
         // Simpan hasil perhitungan ke session
         session([
-            'matriks' => $matriks,
             'normalisasi'   => $normalisasi,
             'bobot' => $bobot,
             'totalKolom' => $totalKolom,
@@ -170,13 +175,5 @@ class PembobotanController extends Controller
 
         session()->flash('scroll', true);
         return redirect()->route('pembobotan.index');
-
-        if ($cr < 0.1) {
-            return redirect()->route('pembobotan.index')
-                ->with('success', 'Pembobotan AHP konsisten! CR = ' . number_format($cr, 4));
-        } else {
-            return redirect()->route('pembobotan.index')
-                ->with('error', 'Pembobotan tidak konsisten! CR = ' . number_format($cr, 4) . '. Silakan ubah nilai perbandingan.');
-        }
     }
 }
