@@ -1,5 +1,15 @@
 # Destinify
 
+<div align="center">
+  <img src="public/destinify.jpg" alt="Destinify Logo" width="200" style="border-radius: 20px; margin-bottom: 20px;" />
+</div>
+
+> **⚠️ Versi Baru Tersedia!**  
+> Proyek ini telah dimigrasi ke **Next.js + React**  
+> 🚀 **[Lihat Versi Next.js](https://github.com/FathimatusZN/destinify-nextjs)** | 🌐 **[Live Demo](https://destinifyspk.netlify.app/)**
+
+---
+
 Sistem Rekomendasi Destinasi Wisata menggunakan metode AHP (Analytical Hierarchy Process) berbasis Laravel.
 
 ## Prasyarat
